@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<CENTER>
+  <div  >
+    <div class="col-md-8 col-md-offset-2">
+      <div class="page-header">
+          <h1>Check-In: <small>Hotels  Near By </small></h1>
+      </div>
+    <!-- Displays Each Hotel as a "Card" and a button to visit the hotels page. -->
+	<center>
+  {% for Hotel in hotels %}
+
+      <div class="card">
+	  
+
+        <img  src="{{Hotel.himage1}}"  height="200"   width="200" alt="Card image" style="margin-top: 10px; border-radius: 10px; "> <!--Hotel thumbnail path -->
+
+        <div class="card-block">
+          <h4 class="card-Title" style="margin-top: 10px">{{ Hotel.hname}}</h4>
+          <p class ="card-text" style="font-family: 'Josefin Sans', sans-serif; font-size: 15px;">{{Hotel.hdes}}</p>
+		  <form action="http://localhost:8000/hoteldetail/" method="POST">
+			{% csrf_token %}
+			<input type="hidden" value="{{Hotel.hname}}" name="hname">
+			<input type="hidden" value="{{Hotel.pid}}" name="pid">
+			
+			<span><input type="submit" value="View Details" style="margin-top: 15px; width: 200px; height: 45px; border-radius: 5px; border: thin; cursor: pointer;"></span>
+			
+			</form>
+			
+
+        
+       </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+{% endblock %}

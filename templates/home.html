@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block content  %}
+
+<head>
+
+<link rel="stylesheet" type="text/css" href="{{path}}home/home.css">
+
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{{path}}leavemessage/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{path}}leavemessage/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{path}}leavemessage/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{path}}leavemessage/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{path}}leavemessage/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{path}}leavemessage/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{path}}leavemessage/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{path}}leavemessage/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{path}}leavemessage/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{path}}leavemessage/css/util.css">
+	
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	
+<!--===============================================================================================-->
+	
+<!--===============================================================================================-->
+	<script src="{{path}}leavemessage/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="{{path}}leavemessage/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="{{path}}leavemessage/vendor/bootstrap/js/popper.js"></script>
+	<script src="{{path}}leavemessage/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="{{path}}leavemessage/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="{{path}}leavemessage/vendor/daterangepicker/moment.min.js"></script>
+	<script src="{{path}}leavemessage/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="{{path}}leavemessage/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+
+<style>
+	@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,700');
+.cen input[type="text"]
+{
+    margin-top:30px;
+    width:800px;
+    padding: 22px;
+    font-size: 18px;
+
+}
+.cen input[type="submit"]
+{
+    margin-top:20px;
+    width:auto;
+	text-align: left;
+    padding: 10px;
+    font-size: 18px;
+    background-color:white;
+    border:#008fb3;
+	color: rgba(0,0,0,0.8);
+    cursor: pointer;
+   }
+	body
+	{
+		font-family: 'Josefin Sans', sans-serif;
+	}
+	
+	#butn:hover
+	{
+		background-color:#e5eaed;
+		transition: 0.5s;
+		transition-delay: 0.1s;
+	}
+	
+</style>
+
+
+<!--===============================================================================================-->
+</head>
+<center>
+
+ 
+<table  background="{{path}}background.jpg" bordercolor="lightgrey" border="1" cellpadding="40" cellspacing="20" style="margin:20px; width:90%;"><tr>
+<td>
+
+<div class="cen"  >	
+<center>
+<table><tr><td >
+
+<form method="POST" action="http://localhost:8000/">
+{% csrf_token %}
+<input type="text" placeholder="Search" name="query" style="height: 50px; margin-top: 40px; border-radius: 5px; border: thin;"></td><td>&nbsp;&nbsp;&nbsp;
+ 
+<input type="submit" value="Search" style="height: 50px; margin-top: 40px; border-radius: 5px; border: thin;"></td>
+
+</tr>
+</table>
+</form>
+</center>
+<br><br>
+
+
+		
+<table   style="background-color:#ffffff; width:100%; ">
+
+
+
+{% for k in obj %}
+
+
+
+
+
+</form> 
+
+<tr style="margin:10px;">
+
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>
+	<div class="wrap-contact90" style="margin:30px;">
+	<div class="row">
+  <div class="span8">
+    <div class="row">
+      <div class="span8">
+	  <form   action="http://localhost:8000/detail/" method="POST">
+{% csrf_token %}
+
+<input  type="hidden"  name="pi" value ={{k.pid}} >
+
+
+	 
+        <h4><img id="pic" src={{k.pimage1}} width="200" height="200"; style="padding-bottom: 10px;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;<input  id="butn" type="submit" value="{{k.pname}}"></strong></h4><font color="#000000" size="+0.5">{{k.pdes}}</font>
+      </div>
+    </div>
+    <div class="row">
+      
+	    
+
+
+      
+    </div>
+    <div class="row">
+      <div class="span8">
+     
+        <p><font color="black"><b>
+         	 User Rating<a>&nbsp;&nbsp;{{k.prating}}</a>
+			
+			
+<span class="fa fa-star checked" style="color: #ffa500"></span>
+<span class="fa fa-star checked" style="color: #ffa500"></span>
+<span class="fa fa-star checked" style="color: #ffa500"></span>			
+<span class="fa fa-star "></span>
+<span class="fa fa-star "></span>			
+
+
+
+    
+         
+          </font> 
+        </b>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+
+</div>
+</td></tr>
+	   
+{% endfor %}
+</table>
+
+
+
+
+
+
+
+
+
+</tr></table>
+
+         
+{% endblock %}
+

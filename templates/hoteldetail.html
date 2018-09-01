@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<center>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+
+    <!-- Displays the Hotels Name, Country and City and Company Name -->
+      <div class="page-header">
+		
+          <h2>{{hotels.hname}} <small class="text-muted">- <u>{{hotels.Partner.CompanyName}}</u></small></h2>
+          <small>India |  {{ hotels.city}}</small>
+      </div>
+      <!-- Slideshow of all the Hotels Photos -->
+      <center>
+
+        <div class="autoplay">
+			<center>
+         
+          <div><img  src="{{hotels.himage1}}" width="200px" height="200px">&nbsp;&nbsp;&nbsp;<img  src="{{hotels.himage2}}" width="200" height="200">&nbsp;&nbsp;&nbsp;<img  src="{{hotels.himage3}}" width="200" height="200"></div>
+          </center>
+        </div>
+    </center>
+      <!-- End Slideshow -->
+
+    <!-- Information Box , Hotel details ( Address, Tel etc ) & Hotel Rating-->
+    <hr>
+    <div class= "panel panel-primary">
+
+      <div class = "panel-heading">
+        <h3 class="panel-title">Hotel Details:</h3>
+      </div>
+
+      <div class="panel panel-body">
+
+          <dl class="row">
+              <dt class="col-sm-5">Check-In User Rating:</dt>
+                <dd class="col-sm-7">
+                    <img src="" /> <!-- Star path-->
+                    
+                    <b>{{hotels.hrating}} stars </b>
+                   
+                   
+                </dd>
+              <dt class="col-sm-5">Address:</dt>
+                <dd class="col sm-7">
+                    {{ hotels.address}}
+                </dd>
+				<br>
+              <dt class="col-sm-5">Telephone Number:
+              
+                    {{ hotels.hphone}}</dt>
+                
+        <!-- Unless there is only 1 hotel in this City , Display a recommended Hotel. -->
+              
+                
+
+        </dl>
+
+  </div>
+</div>
+<hr />
+<div class= "panel panel-primary">
+
+  <div class = "panel-heading">
+    <h3 class="panel-title ">Weather information about <b>{{hotels.city}}</b>:</h3>
+
+  </div>
+
+  <div class="panel panel-body">
+            <div class="text-center">
+              <b>Current Temperature</b>
+              <p id="temp"></p>
+              <img id="icon"  src="" />
+            </div>
+            <div class="text-center">
+              <b>Current Weather</b>
+              <p id="weather">
+              </p><p id="desc"></p>
+            </div>
+            <div id="info">
+            </div>
+
+
+
+
+
+</div>
+</div>
+
+
+
+
+<!-- Displays a table with all the reviews of the hotel that users have left. -->
+
+
+
+
+
+<!-- If Laravel Validation detects errors then this will show a message. -->
+
+</div>
+</div>
+	</center>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+  
+  <script>
+      $('.autoplay').on('init',function(slick){
+        console.log('fired');
+        $('.autoplay').fadeIn(300);
+      })
+      .slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2500,
+        arrows:false,
+        infinite: true,
+        speed: 500,
+        fade: true,
+        cssEase: 'linear',
+        lazyLoad:'ondemand'
+      });
+  </script>
+
+
+  <script>
+      var City = "{{hotels.city}}";
+        function ascii (a) { return String.fromCharCode(a); }
+        function displayweather(data){
+          if (data.length !== 0){
+                var mainweather = (data.weather[0].main);
+                var desc = (data.weather[0].description);
+                var temp = (data.main.temp);
+                var code = (data.weather[0].icon)
+                var hum = (data.main.humidity)
+                var matemp = (data.main.temp_max)
+                var Wind= (data.wind.speed)
+                var img = "http://openweathermap.org/img/w/"+code+".png"
+                console.log()
+                var main = $('<p>').appendTo('#weather').text(mainweather + " | " +desc);
+                var temp = $('<p>').appendTo('#temp').text(temp +  ascii(176) +"C");
+                var humidity = $('<p>').appendTo('#info').text("Humidity:"+"   "+hum+"%"+"  -   "+ " Max Temp: "+matemp+" "+ ascii(176) +"C" +"  -  "+" Wind Speed: "+Wind+ "Mph");
+              //  var mintemp = $('<p>').appendTo('#info').text("Min Temp: "+mitemp+ ascii(176) +"C");
+              //  var wspeed = $('<p>').appendTo('#info').text("Wind Speed: "+Wind+ "Mph");
+                $("#icon").attr("src",img) }
+              else{
+                var error = $('<p>').appendTo('#info').text("Sorry , We have been unable to retrieve live weather information");
+              }
+        }
+      $(document).ready(function() {
+        $.getJSON("http://api.openweathermap.org/data/2.5/weather?q="+ City +"&units=metric&APPID=ae9512f4de94ef9415b53d6a357bd78a",displayweather);
+        })
+  </script>
+
+
+
+{% endblock %}
